@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { MagnifyingGlassIcon, PencilIcon } from "@heroicons/react/24/outline";
 import SearchModal from "./SearchModal";
-import SearchModalForForm from "./SearchModalForForm";
+
 import fetchData from "../utils/fetchData";
-import { useNavigate } from "react-router-dom"; // استيراد useNavigate
+import { useNavigate } from "react-router-dom";
 
 const ShowFines = () => {
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
-  const [isSearchModalForFormOpen, setIsSearchModalForFormOpen] = useState(false);
+  // const [isSearchModalForFormOpen, setIsSearchModalForFormOpen] = useState(false);
   const [searchResults, setSearchResults] = useState(null);
   const isUser = localStorage.getItem("role") === "user";
-  const navigate = useNavigate(); // استخدام useNavigate
+  const navigate = useNavigate(); 
 
   const handleSearch = (formData) => {
     setSearchResults(formData);
@@ -38,7 +38,7 @@ const ShowFines = () => {
           className="group bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 
                     text-white px-4 py-2 rounded-xl shadow-lg hover:shadow-xl transition-all
                     flex items-center gap-3 transform hover:scale-105"
-          onClick={() => navigate("/fines/create")} // التنقل إلى صفحة إنشاء غرامة
+          onClick={() => navigate("/fines/create")} 
         >
           <PencilIcon className="h-6 w-6 text-white/90 group-hover:text-white" />
           <span className="text-md font-semibold">تسجيل غرامة</span>
@@ -53,13 +53,13 @@ const ShowFines = () => {
         onSearch={handleSearch}
       />
 
-      {isUser && (
+      {/* {isUser && (
         <SearchModalForForm
           isOpen={isSearchModalForFormOpen}
           onClose={() => setIsSearchModalForFormOpen(false)}
           onSearch={handleSearch}
         />
-      )}
+      )} */}
 
       {/* Display the search results */}
       {searchResults && (
