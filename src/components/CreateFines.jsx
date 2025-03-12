@@ -96,17 +96,24 @@ const CreateFines = () => {
         )}
 
         <div className="space-y-4">
-          <div className="bg-gray-100 p-4 rounded-lg">
-            <h3 className="text-lg font-semibold mb-2 text-gray-700">صورة السيارة</h3>
+          <div className="bg-blue-100 p-4 rounded-lg">
+            <h3 className="text-lg font-semibold mb-2 text-blue-700">صورة السيارة</h3>
             <CameraComponent setPhoto={handleVehicleImage} />
           </div>
-          <InputField 
-            label="رقم قرار الحكم"
-            name="RulingDecisionNum"
-            value={formData.RulingDecisionNum}
-            onChange={handleChange}
-            required
-          />
+          <div className="bg-blue-100 p-4 rounded-lg shadow-md">
+            <label className="block text-sm font-medium text-blue-700 mb-1">
+              رقم قرار الحكم
+            </label>
+            <InputField 
+              name="RulingDecisionNum"
+              value={formData.RulingDecisionNum}
+              onChange={handleChange}
+              required
+              className="bg-yellow-200 text-black border-2 border-yellow-500 focus:ring-2 focus:ring-yellow-400 focus:bg-yellow-300 shadow-lg transition duration-200 ease-in-out w-full" 
+              placeholder="أدخل رقم قرار الحكم هنا"
+              style={{ padding: '10px', borderRadius: '5px' }}
+            />
+          </div>
         </div>
       </div>
 
