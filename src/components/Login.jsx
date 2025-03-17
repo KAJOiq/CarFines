@@ -50,8 +50,8 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 w-full">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
+    <div className="min-h-screen flex items-center justify-center bg-red-50 w-full">
+      <div className="border-x bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
         <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">تسجيل الدخول</h1>
         <form onSubmit={handleLogin} className="space-y-5">
           <div className="relative">
