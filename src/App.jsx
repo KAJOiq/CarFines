@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import Header from "./components/Header";
 import ShowUsers from "./components/ShowUsers";
-import Login from "./components/Login";
 import AddUsers from "./components/AddUsers";
 import UpdateUsers from "./components/UpdateUsers";
 import DisableUsers from "./components/DisableUsers";
@@ -12,21 +11,7 @@ import CreateFines from "./components/CreateFines"
 import "./index.css";
 
 const App = () => {
-  const [userName, setUserName] = useState(localStorage.getItem("userName") || "");
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("accessToken"));
   const role = localStorage.getItem("role");
-
-  const handleLogin = (userName) => {
-    setUserName(userName);
-    setIsLoggedIn(true);
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("role");
-    localStorage.removeItem("userName");
-    setIsLoggedIn(false);
-  };
 
   const renderRoutes = () => {
     switch (role) {
@@ -48,18 +33,12 @@ const App = () => {
             <Route path="/fines" element={<ShowFines />} />
             <Route path="/fines/create" element={<CreateFines />} />
             <Route path="*" element={<Navigate to="/fines" />} />
-
-             {/*
-            <Route path="/create-form" element={<CreateForm />} />
-            <Route path="/create-form-version" element={<CreateFormVersion />} />
-            <Route path="/change-password" element={<ChangePassword />} /> 
-            <Route path="*" element={<Navigate to="/forms" />} /> */}
           </Routes>
         );
       default:
         return (
           <Routes>
-            <Route path="*" element={<Navigate to="/login" />} />
+            <Route path="*" element={<Navigate to="/fines" />} />
           </Routes>
         );
     }
@@ -68,18 +47,12 @@ const App = () => {
   return (
     <Router>
       <div className="min-h-screen flex flex-col items-center">
-        {isLoggedIn ? (
-          <>
-            <Header userName={userName} role={role} onLogout={handleLogout} />
-            <main className="w-full max-w-7xl p-4">{renderRoutes()}</main>
-          </>
-        ) : (
-          <Login onLogin={handleLogin} />
-        )}
+        {/* Show Header if there's a role, since login is removed */}
+        <Header role={role} />
+        <main className="w-full max-w-7xl p-4">{renderRoutes()}</main>
       </div>
     </Router>
   );
 };
 
 export default App;
-
