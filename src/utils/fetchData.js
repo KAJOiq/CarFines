@@ -7,8 +7,11 @@ const fetchData = async (url, options = {}, headers = {}) => {
       ...headers,
     };
     
-    const response = await fetch(`http://localhost:5075/api/${url}`, {
-      ...options,
+   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+  // console.log("API Base URL:", apiBaseUrl); // Debugging: Log the API base URL
+
+  const response = await fetch(`${apiBaseUrl}${url}`, {
+    ...options,
       headers: defaultHeaders,
     });
 
