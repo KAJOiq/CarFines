@@ -10,6 +10,13 @@ const Login = ({ onLogin }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      navigate("/");
+    }
+  }, [navigate]);
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -26,7 +33,16 @@ const Login = ({ onLogin }) => {
       );
 
       if (!data.isSuccess) {
-        setErrorMessage("فشل في تسجيل الدخول");
+        if (data.errors && data.errors.length > 0) {
+          const error = data.errors[0];
+          if (error.code === "401") {
+            setErrorMessage("خطأ في اسم المستخدم أو كلمة المرور");
+          } else {
+            setErrorMessage(error.message || "فشل في تسجيل الدخول");
+          }
+        } else {
+          setErrorMessage("فشل في تسجيل الدخول");
+        }
         return;
       }
 
@@ -37,7 +53,6 @@ const Login = ({ onLogin }) => {
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("userName", userName);
         localStorage.setItem("role", role);
-
 
         onLogin(userName);
         navigate("/");

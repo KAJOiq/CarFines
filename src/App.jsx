@@ -6,9 +6,10 @@ import Login from "./components/Login";
 import AddUsers from "./components/AddUsers";
 import UpdateUsers from "./components/UpdateUsers";
 import DisableUsers from "./components/DisableUsers";
-import ChangePassword from "./components/ChangePassword"
-import ShowFines from "./components/ShowFines"
-import CreateFines from "./components/CreateFines"
+import ChangePassword from "./components/ChangePassword";
+import ShowFines from "./components/ShowFines";
+import CreateFines from "./components/CreateFines";
+import ProtectedRoute from "./components/ProtectedRoute";
 import "./index.css";
 
 const App = () => {
@@ -33,27 +34,85 @@ const App = () => {
       case "admin":
         return (
           <Routes>
-            <Route path="/users" element={<ShowUsers/>}/>
-            <Route path="/add-user" element={<AddUsers />} />
-            <Route path="update-user/:userId" element={<UpdateUsers />} />
-            <Route path="/disable-user" element={<DisableUsers />} />
-            <Route path="/change-password" element={<ChangePassword />} /> 
-            <Route path="/fines" element={<ShowFines/>}/>
+            <Route
+              path="/users"
+              element={
+                <ProtectedRoute
+                  element={<ShowUsers />}
+                  allowedRoles={["admin"]}
+                />
+              }
+            />
+            <Route
+              path="/add-user"
+              element={
+                <ProtectedRoute
+                  element={<AddUsers />}
+                  allowedRoles={["admin"]}
+                />
+              }
+            />
+            <Route
+              path="/update-user/:userId"
+              element={
+                <ProtectedRoute
+                  element={<UpdateUsers />}
+                  allowedRoles={["admin"]}
+                />
+              }
+            />
+            <Route
+              path="/disable-user"
+              element={
+                <ProtectedRoute
+                  element={<DisableUsers />}
+                  allowedRoles={["admin"]}
+                />
+              }
+            />
+            <Route
+              path="/change-password"
+              element={
+                <ProtectedRoute
+                  element={<ChangePassword />}
+                  allowedRoles={["admin", "user"]}
+                />
+              }
+            />
+            <Route
+              path="/fines"
+              element={
+                <ProtectedRoute
+                  element={<ShowFines />}
+                  allowedRoles={["admin", "user"]}
+                />
+              }
+            />
             <Route path="*" element={<Navigate to="/users" />} />
           </Routes>
         );
       case "user":
         return (
           <Routes>
-            <Route path="/fines" element={<ShowFines />} />
-            <Route path="/fines/create" element={<CreateFines />} />
+            <Route
+              path="/fines"
+              element={
+                <ProtectedRoute
+                  element={<ShowFines />}
+                  allowedRoles={["admin", "user"]}
+                />
+              }
+            />
+            <Route
+              path="/fines/create"
+              element={
+                <ProtectedRoute
+                  element={<CreateFines />}
+                  allowedRoles={["user"]}
+                />
+              }
+            />
             <Route path="*" element={<Navigate to="/fines" />} />
-
-             {/*
-            <Route path="/create-form" element={<CreateForm />} />
-            <Route path="/create-form-version" element={<CreateFormVersion />} />
-            <Route path="/change-password" element={<ChangePassword />} /> 
-            <Route path="*" element={<Navigate to="/forms" />} /> */}
           </Routes>
         );
       default:
@@ -82,4 +141,3 @@ const App = () => {
 };
 
 export default App;
-
