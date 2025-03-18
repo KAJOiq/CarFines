@@ -9,6 +9,7 @@ const CreateFines = () => {
   const navigate = useNavigate(); 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formErrors, setFormErrors] = useState([]);
+  const [successMessage, setSuccessMessage] = useState(""); 
 
   // States for photos
   const [vehicleImagePath, setVehicleImagePath] = useState(null);
@@ -61,7 +62,12 @@ const CreateFines = () => {
         return;
       }
 
-      navigate('/fines', { state: { success: true } }); 
+      setSuccessMessage("تم تسجيل الغرامة بنجاح");
+
+      setTimeout(() => {
+        navigate('/fines', { state: { success: true } });
+      }, 2000); 
+
     } catch (error) {
       console.error('Error:', error);
       setFormErrors(['فشل في الاتصال بالخادم: ' + error.message]);
@@ -117,8 +123,13 @@ const CreateFines = () => {
         </div>
       </div>
 
-      {/* Submit button */}
-      <div className="p-6 border-t flex justify-end bg-white">
+      {/* Submit button and success message */}
+      <div className="p-6 border-t flex flex-col items-end bg-white">
+        {successMessage && ( 
+          <div className="mb-4 p-3 bg-green-100 text-green-600 rounded-lg">
+            {successMessage}
+          </div>
+        )}
         <button
           type="button"
           onClick={handleSubmit}
