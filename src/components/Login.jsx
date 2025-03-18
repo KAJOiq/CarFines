@@ -17,6 +17,13 @@ const Login = ({ onLogin }) => {
     }
   }, [navigate]);
 
+  useEffect(() => {
+    if (errorMessage) {
+      const timer = setTimeout(() => setErrorMessage(""), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [errorMessage]);
+  
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);

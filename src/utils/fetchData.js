@@ -15,7 +15,7 @@ const fetchData = async (url, options = {}, headers = {}) => {
       headers: defaultHeaders,
     });
 
-    if (response.status === 401) {
+/*     if (response.status === 401) {
       localStorage.setItem("sessionExpired", "انتهت صلاحية الجلسة، يرجى تسجيل الدخول");
 
       localStorage.removeItem("accessToken");
@@ -24,7 +24,7 @@ const fetchData = async (url, options = {}, headers = {}) => {
       window.location.href = "/login";
   
         return { isSuccess: false, message: "انتهت صلاحية الجلسة، سيتم إعادة التوجيه..." };
-    } 
+    }  */
 
     const text = await response.text();
     return text ? JSON.parse(text) : {};
